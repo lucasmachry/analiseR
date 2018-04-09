@@ -59,6 +59,10 @@ server <- function(input, output) {
                                    , levels = precos
                                    , labels = tipos_precos) )
    })
+   
+   estacoes_periodo_produtos <- reactive({
+     estacoes_periodo(year(min(ceasa_data$data)), year(max(ceasa_data$data)))
+   })
   
    output$SerieProduto <- renderPlot({
      req(input$Produto) 
@@ -66,6 +70,8 @@ server <- function(input, output) {
      precos_produto <- precos_produto_selecionado()
 
      maior_preco_praticado <- ceiling(max(precos_produto$valor, na.rm = TRUE)) + 1
+     
+     estacoes <- estacoes_periodo_produtos()
 
      precos_produto %>%
        ggplot(aes(x = data, y = valor, group = tipo_preco, color = tipo_preco)) +

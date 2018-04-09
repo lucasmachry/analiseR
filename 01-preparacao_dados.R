@@ -175,7 +175,7 @@ ipca_index <-
                     , col_types = c("text", "text", "text")) %>%
   filter(!is.na(month)) %>%
   fill(year, .direction = "down") %>%
-  mutate( anomes = dmy(paste("01", month, year, sep="/"), locale = "pt_BR")
+  mutate( anomes = dmy(paste("01", month, year, sep="/"))
           , index = as.numeric(index)) %>%
   select(anomes, index)
 
